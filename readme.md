@@ -1,5 +1,9 @@
 ### MakersBnb
 
+Rent and offer rooms!
+
+Chloe, Nazia, Seb and Vue are building an airbnb clone.
+
 ## MVP: User stories
 
 ```As a user, I can offer a room```  
