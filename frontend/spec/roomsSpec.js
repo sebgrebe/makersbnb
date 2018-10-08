@@ -15,4 +15,10 @@ describe("Rooms",function(){
       expect(roomHTML(data_mock[2])).toContain("Owner: Owner Room3");
     })
   })
+
+  describe("bookingButtonHTML",function(){
+    it("Should contain a button tag with room id", function() {
+      expect(bookingButtonHTML(1)).toContain("<button id='booking-button-1'")
+    })
+  })
 })
