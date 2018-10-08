@@ -2,7 +2,7 @@
 
 Rent and offer rooms!
 
-Chloe, Nazia, Seb and Vue are building an airbnb clone.
+Chloe, Nazia, Seb and Vu are building an airbnb clone.
 
 ## MVP: User stories
 
