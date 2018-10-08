@@ -32,6 +32,13 @@ $(document).ready(function() {
   rooms.forEach(function(room){
     $('.rooms').append(roomHTML(room));
   })
+
+  $( ".booking-button" ).click(function(val) {
+    var button_id = val.currentTarget.id
+    var room_id = button_id.substr(15,button_id.length-1)
+    //TODO: input ajax call to book room
+    alert("You booked room " + room_id)
+  });
 })
 
 function formatAvailability(availability) {
@@ -43,7 +50,7 @@ function formatAvailability(availability) {
 }
 
 function getRooms() {
-  // uncomment when database API is working
+  // TODO: uncomment when database API is working
   // $.ajax({
   //   url: 'http://localhost:9292/api/rooms',
   //   type: 'GET',
