@@ -20,3 +20,5 @@ Chloe, Nazia, Seb and Vu are building an airbnb clone.
 * interface.js: Makes calls to api
 * Backend API: Sinatra/Ruby
 * Database: Postgresql
+
+## Instructions: Run locally
