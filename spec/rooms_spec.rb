@@ -1,5 +1,6 @@
 require 'pg'
 require 'rooms'
+require 'json'
 
 
 describe Rooms do
@@ -36,7 +37,7 @@ describe Rooms do
         'price_per_night' => '100',
         'available' => 't',
         'owner' => 'Vu',
-        'location' => 'London'}])
+        'location' => 'London'}].to_json)
     end
   end
   
@@ -49,15 +50,21 @@ describe Rooms do
       @owner = 'Vu'
       @location = 'London'
     end
-    it 'books a given room' do
+    it 'it allows room to be booked if available' do
       drop_rooms_table
       conn = PG.connect(dbname: 'MakersBnB_test')
       conn.exec("CREATE TABLE rooms (room_id SERIAL PRIMARY KEY, name VARCHAR(20),description VARCHAR(200), price_per_night INTEGER, available BOOLEAN, owner VARCHAR(20), location VARCHAR(50));")
       Rooms.add_room(@name, @description, @price_per_night, @available, @owner, @location)
       id = '1'
-      Rooms.book_room(id)
-      result = conn.exec("SELECT available FROM rooms WHERE room_id = #{id};")
-      expect(result[0]['available']).to eq('f')
+      expect(Rooms.book_room(id)).to include('"booked":true')
     end
+  it 'it doesn\'t allows room to be booked if available' do
+    drop_rooms_table
+    conn = PG.connect(dbname: 'MakersBnB_test')
+    conn.exec("CREATE TABLE rooms (room_id SERIAL PRIMARY KEY, name VARCHAR(20),description VARCHAR(200), price_per_night INTEGER, available BOOLEAN, owner VARCHAR(20), location VARCHAR(50));")
+    Rooms.add_room(@name, @description, @price_per_night, 'f', @owner, @location)
+    id = '1'
+    expect(Rooms.book_room(id)).to include('"booked":false')
   end
+end
 end

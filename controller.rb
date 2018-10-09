@@ -17,8 +17,6 @@ class MakersBnB < Sinatra::Base
      Rooms.list_rooms
   end
 
-
-
   run! if app_file == $0
 
 end

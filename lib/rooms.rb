@@ -17,15 +17,29 @@ class Rooms
     result.map do |element|
       array_of_rooms.push(element)
     end
-    p array_of_rooms.to_json
     return array_of_rooms.to_json
   end
 
-  def self.book_room(id)
-    connect_database()
-    @connection.exec ("UPDATE rooms SET available = 'f' WHERE room_id = #{id};")
-    p ' Request Room is booked for you.'
+  def self.check_availability(id)
+    connect_database
+    available = @connection.exec("SELECT available FROM rooms WHERE room_id = #{id};")
+    available.each do |x|
+      return x['available']
+    end
   end
+  def self.book_room(id)
+    connect_database
+    if check_availability(id) == 't'
+      @connection.exec ("UPDATE rooms SET available = 'f' WHERE room_id = #{id};")
+      result = { :booked => true, :room => (@connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};"))}
+      return result.to_json
+    else
+      result = { :booked => false, :room => (@connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};"))}
+      return result.to_json
+    end
+  end
+
+
   
   private
 
