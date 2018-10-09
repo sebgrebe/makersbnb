@@ -1,6 +1,7 @@
 ENV['ENVIRONMENT'] = 'test'
+ENV['ENV'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', '/app/controller.rb')
+require File.join(File.dirname(__FILE__), '..', '/controller.rb')
 require 'sinatra/base'
 require 'capybara'
 require 'capybara/rspec'
@@ -9,9 +10,9 @@ require 'setup_test_database'
 Capybara.app = MakersBnB
 
 RSpec.configure do |config|
-  config.before(:each) do
-    truncate_rooms_table
-  end
+  # config.before(:each) do
+  #   truncate_rooms_table
+  # end
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
