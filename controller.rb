@@ -14,7 +14,7 @@ class MakersBnB < Sinatra::Base
   end
 
   post '/api/book_room' do
-    Rooms.book_room(id)
+    Rooms.book_room(params[:id])
   end
 
   run! if app_file == $0
