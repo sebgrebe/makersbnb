@@ -1,3 +1,19 @@
+.confirmation {
+  background-color: green;
+  font-size: 20px;
+  color: white;
+}
+
+.error {
+  background-color: red;
+  font-size: 20px;
+  color: white;
+}
+
+.offer-input {
+  display: block;
+}
+
 .room {
   border-style: solid;
   border-width: 2px;
@@ -10,16 +26,4 @@
   font-weight: bold;
   font-size: 20px;
   padding-bottom: 4px;
-}
-
-.booking-confirmation {
-  background-color: green;
-  font-size: 20px;
-  color: white;
-}
-
-.booking-error {
-  background-color: red;
-  font-size: 20px;
-  color: white;
 }
