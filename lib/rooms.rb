@@ -47,7 +47,7 @@ class Rooms
     if ENV['ENV'] == 'test'
       @connection = PG.connect(dbname: 'makersbnb_test')
     else
-      @connection = PG.connect(dbname: 'Makersbnb')
+      @connection = PG.connect(dbname: 'makersbnb')
     end
   end
 end
