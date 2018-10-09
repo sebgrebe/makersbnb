@@ -51,20 +51,21 @@ function formatAvailability(availability) {
 
 function getRooms() {
   // TODO: uncomment when database API is working
-  // $.ajax({
-  //   url: 'http://localhost:9292/api/rooms',
-  //   type: 'GET',
-  //   dataType: 'json'
-  // })
-  // .done(function(data) {
-  //  data = JSON.parse(data_mock_json);
-  //  return data;
-  // })
-  // .fail(function(xhr,status,errorThrown) {
-  //   alert("Sorry, there was a problem. Status: " + status)
-  // })
-  data = JSON.parse(data_mock_json);
-  return data;
+  $.ajax({
+    url: 'http://localhost:9292/api/rooms',
+    type: 'GET',
+    dataType: 'json'
+  })
+  .done(function(data) {
+    console.log(data)
+   // data = JSON.parse(data_mock_json);
+   // return data;
+  })
+  .fail(function(xhr,status,errorThrown) {
+    alert("Sorry, there was a problem. Status: " + status)
+  })
+  // data = JSON.parse(data_mock_json);
+  // return data;
 }
 
 function roomHTML(room) {
