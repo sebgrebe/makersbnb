@@ -45,26 +45,43 @@ class Rooms
   end
 
   def self.add_room(name, description, price_per_night, available, owner, location)
-    if ENV['TEST'] == 'test'
-      @connection = PG.connect(dbname: 'MakersBnB_test')
-    else
-      @connection = PG.connect(dbname: 'MakersBnB')
-    end
+    connect_database()
+    # if ENV['TEST'] == 'test'
+    #   @connection = PG.connect(dbname: 'MakersBnB_test')
+    # else
+    #   @connection = PG.connect(dbname: 'MakersBnB')
+    # end
     result = @connection.exec ("INSERT INTO rooms (name, description, price_per_night, available, owner, location) VALUES ('#{name}','#{description}', '#{price_per_night}', '#{available}', '#{owner}', '#{location}');")
   end
 
   def self.list_rooms 
+    connect_database
     array_of_rooms = []
-    if ENV['TEST'] == 'test'
-      @connection = PG.connect(dbname: 'MakersBnB_test')
-    else
-      @connection = PG.connect(dbname: 'MakersBnB')
-    end
-    result = @connection.exec ("SELECT name, description, price_per_night, available, owner, location FROM rooms;")
+    # if ENV['TEST'] == 'test'
+    #   @connection = PG.connect(dbname: 'MakersBnB_test')
+    # else
+    #   @connection = PG.connect(dbname: 'MakersBnB')
+    # end
+    result = @connection.exec ("SELECT * FROM rooms;")
     result.map do |element|
       array_of_rooms.push(element)
     end
     return array_of_rooms
   end
+
+  def self.book_room(id)
+    connect_database()
+    @connection.exec ("UPDATE rooms SET available = 'f' WHERE room_id = #{id};")
+    p ' Request Room is booked for you.'
+  end
   
+  private
+
+  def self.connect_database
+    if ENV['TEST'] == 'test'
+      @connection = PG.connect(dbname: 'MakersBnB_test')
+    else
+      @connection = PG.connect(dbname: 'MakersBnB')
+    end
+  end
 end
