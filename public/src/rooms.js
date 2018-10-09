@@ -4,8 +4,7 @@ $(document).ready(function() {
   $(document).on("click", ".booking-button", function(val) {
     var button_id = val.currentTarget.id
     var room_id = button_id.substr(15,button_id.length-1)
-    //bookRoom(room_id)
-    showBookingConfirmation('studioflat') //this needs to be deleted once ajax is working
+    bookRoom(room_id)
   });
 
   $(document).on("click", ".booking-button-disabled", function() {
@@ -16,14 +15,14 @@ $(document).ready(function() {
 
 function bookRoom(room_id){
    $.ajax({
-    url: 'http://localhost:9292/api/bookroom',
+    url: 'http://localhost:9292/api/book_room?' + jQuery.param({id: room_id}),
     type: 'POST',
     dataType: 'json',
-    body: {room_id: room_id}
-
   })
   .done(function(data) {
-    // implement logic for checking the response.
+    //TODO: get name of room
+    console.log(data)
+    if (data.booked) { showBookingConfirmation('generic')}
   })
   .fail(function(xhr,status,errorThrown) {
     alert("Sorry, there was a problem. Status: " + status)
@@ -72,7 +71,7 @@ function roomHTML(room) {
   room_div += "<div class ='room-price'> Price per night: £" + room.price_per_night + "</div>"
   room_div += "<div class ='room-available'> Available: " + formatAvailability(room.available) + "</div>"
   room_div += "<div class ='room-owner'> Owner: " + room.owner + "</div>"
-  room_div += bookingButtonHTML(room.id,room.available)
+  room_div += bookingButtonHTML(room.room_id,room.available)
   room_div += "</div>"
   return room_div
 }
