@@ -13,6 +13,10 @@ class MakersBnB < Sinatra::Base
      Rooms.list_rooms
   end
 
+  post '/api/book_room' do
+    Rooms.book_room(id)
+  end
+
   run! if app_file == $0
 
 end
