@@ -11,7 +11,6 @@ Capybara.app = MakersBnB
 
 RSpec.configure do |config|
   config.before(:each) do
-    
     truncate_rooms_table
   end
 
