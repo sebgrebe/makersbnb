@@ -1,18 +1,24 @@
-# bookmark-manager
+### MakersBnb
 
-# User Stories
+Rent and offer rooms!
 
-First user story to show a list of bookmarks:
+Chloe, Nazia, Seb and Vu are building an airbnb clone.
 
-As a user
-I want to view a list of bookmarks
-So that I can access saved websites easily
+## MVP: User stories
 
-nouns           verbs
+```As a user, I can offer a room```  
+```As a user, I can set availability of the room```
+```As a user, I can name my room, give a short description, and price per night```
 
-user            
-bookmarks       view
+```As a user, I can see a list of all rooms```  
+```As a user, I can see whether a room is available```
+```As a user, I can book a room if it is available```  
+```As a user, I get a confirmation if I book a room```  
 
-# Domain model
+## Tech stack
+* View: HTML/CSS/JS
+* interface.js: Makes calls to api
+* Backend API: Sinatra/Ruby
+* Database: Postgresql
 
-tbc
+## Instructions: Run locally
