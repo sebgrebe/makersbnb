@@ -56,12 +56,12 @@ function getRooms() {
 
 function showBookingConfirmation(room_name){
   $('#messages').text('')
-  $('#messages').append('<div class="booking-confirmation">You have successfully booked the room: ' + room_name + '</div>');
+  $('#messages').append('<div class="confirmation">You have successfully booked the room: ' + room_name + '</div>');
 }
 
 function showBookingError() {
   $('#messages').text('')
-  $('#messages').append('<div class="booking-error">You cannot book unavailable rooms</div>');
+  $('#messages').append('<div class="error">You cannot book unavailable rooms</div>');
 }
 
 function roomHTML(room) {
