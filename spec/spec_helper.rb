@@ -11,7 +11,7 @@ Capybara.app = MakersBnB
 
 RSpec.configure do |config|
   config.before(:each) do
-    truncate_rooms_table
+    setup_test_database
   end
 
   config.expect_with :rspec do |expectations|

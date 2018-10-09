@@ -14,11 +14,11 @@ class MakersBnB < Sinatra::Base
   end
 
   get '/api/rooms' do
-     Rooms.list_rooms
+     Rooms.list_rooms.to_json
   end
 
   post '/api/book_room' do
-    Rooms.book_room(params[:id])
+    Rooms.book_room(params[:id]).to_json
   end
 
   run! if app_file == $0
