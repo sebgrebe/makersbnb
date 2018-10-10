@@ -20,9 +20,8 @@ function bookRoom(room_id){
     dataType: 'json',
   })
   .done(function(data) {
-    //TODO: get name of room
-    console.log(data)
-    if (data.booked) { showBookingConfirmation('generic')}
+    console.log(data.room.name)
+    if (data.booked) { showBookingConfirmation(data.room.name)}
   })
   .fail(function(xhr,status,errorThrown) {
     alert("Sorry, there was a problem. Status: " + status)
