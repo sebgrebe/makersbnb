@@ -18,7 +18,7 @@ describe Rooms do
       Rooms.add_room(@offer)
       conn = PG.connect(dbname: 'makersbnb_test')
       results = conn.exec("SELECT * FROM rooms;")[2]
-      expect(results['name']).to eq(@offer['name'])
+      expect(results['room_name']).to eq(@offer['name'])
       expect(results['description']).to eq(@offer['description'])
       expect(results['price_per_night']).to eq(@offer['price'])
       expect(results['available']).to eq(@offer['available'])
