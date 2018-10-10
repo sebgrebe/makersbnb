@@ -5,7 +5,6 @@ require 'json'
 class Rooms
   attr_reader :connection, :array_of_rooms
 
-
   def self.add_room(offer, user_id)
     connect_database()
     user_id = @connection.exec("SELECT user_id FROM users WHERE user_id=#{user_id}")

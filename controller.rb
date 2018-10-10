@@ -19,13 +19,30 @@ class MakersBnB < Sinatra::Base
     File.read(File.join('public', 'signup.html'))
   end
 
+  get '/users/login' do
+    File.read(File.join('public', 'login.html'))
+  end
+
   get '/api/rooms' do
      Rooms.list_rooms.to_json
   end
 
+  post '/api/login' do
+    login = params[:login]
+    result = Users.authenticate(login['email'], login['password'])
+    if result[:success]
+      session[:user] = result[:user]
+    end
+    return result.to_json
+  end
+
   post '/api/signup' do
     signup = params[:signup]
-    Users.sign_up(signup['email'], signup['password'], signup['first_name'], signup['last_name']).to_json
+    result = Users.sign_up(signup['email'], signup['password'], signup['first_name'], signup['last_name'])
+    if result[:success]
+      session[:user] = result[:user]
+    end
+    return result.to_json
   end
 
   post '/api/book_room' do
@@ -34,9 +51,9 @@ class MakersBnB < Sinatra::Base
 
   post '/api/offer_room' do
     @offer = params[:offer]
-    Rooms.add_room(@offer).to_json
+    @user_id = session[:user]["user_id"]
+    Rooms.add_room(@offer, @user_id).to_json
   end
-
 
   run! if app_file == $0
 
