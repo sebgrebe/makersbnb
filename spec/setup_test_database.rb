@@ -12,4 +12,6 @@ def setup_test_database
 
   conn.exec("INSERT INTO rooms (room_name, description, price_per_night, available, location) VALUES ('studio flat', 'a studio flat in SE london', 100, true, 'London');")
   conn.exec("INSERT INTO rooms (room_name, description, price_per_night, available, location) VALUES ('penthouse', 'views over East London', 500, true, 'East London');")
+
+  conn.exec("INSERT INTO users (email, password, first_name, last_name) VALUES ('test@example.com', 'test', 'test_name', 'test_name');")
 end

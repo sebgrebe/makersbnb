@@ -15,7 +15,7 @@ describe Rooms do
       }
     end
     it 'it add a room to the rooms table' do
-      Rooms.add_room(@offer)
+      Rooms.add_room(@offer, 1)
       conn = PG.connect(dbname: 'makersbnb_test')
       results = conn.exec("SELECT * FROM rooms;")[2]
       expect(results['room_name']).to eq(@offer['name'])
@@ -23,9 +23,10 @@ describe Rooms do
       expect(results['price_per_night']).to eq(@offer['price'])
       expect(results['available']).to eq(@offer['available'])
       expect(results['location']).to eq(@offer['location'])
+      expect(results['owner_user_id']).to eq("1")
     end
     it 'returns "success" on success' do
-      expect(Rooms.add_room(@offer)).to eq "success"
+      expect(Rooms.add_room(@offer, 1)).to eq "success"
     end
   end
 
