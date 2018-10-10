@@ -8,7 +8,9 @@ class Rooms
 
   def self.add_room(offer)
     connect_database()
-    result = @connection.exec ("INSERT INTO rooms (room_name, description, price_per_night, available, location) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}','#{offer['available']}', '#{offer['location']}');")
+    # dummy user id. Will need to be switched to actual one, using fetching of foreign key
+    dummy_user_id = '12345'
+    result = @connection.exec ("INSERT INTO rooms (name, description, price_per_night, available, owner, location) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}', '#{offer['available']}', '#{dummy_user_id}', '#{offer['location']}');")
     return "success" if result != nil
     return "failure"
   end
