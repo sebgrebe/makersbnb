@@ -7,7 +7,7 @@ $(document).ready(function(){
       price: $('#price').val(),
       available: $('#available_yes').is(':checked'),
       location: $('#location').val(),
-      owner_user_id: '12345'
+      owner_user_id: 12345
     }
 
     //offerRoom(offer);
