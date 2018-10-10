@@ -11,7 +11,6 @@ describe Rooms do
       'description' => 'a studio flat in SE london',
       'price' => '100',
       'available' => 't',
-      'owner_user_id' => '12345',
       'location' => 'London'
       }
     end
@@ -23,7 +22,6 @@ describe Rooms do
       expect(results['description']).to eq(@offer['description'])
       expect(results['price_per_night']).to eq(@offer['price'])
       expect(results['available']).to eq(@offer['available'])
-      expect(results['owner']).to eq(@offer['owner_user_id'])
       expect(results['location']).to eq(@offer['location'])
     end
     it 'returns "success" on success' do
