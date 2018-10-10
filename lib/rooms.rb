@@ -5,9 +5,11 @@ require 'json'
 class Rooms
   attr_reader :connection, :array_of_rooms
 
-  def self.add_room(name, description, price_per_night, available, owner, location)
+  def self.add_room(offer)
     connect_database()
-    result = @connection.exec ("INSERT INTO rooms (name, description, price_per_night, available, owner, location) VALUES ('#{name}','#{description}', '#{price_per_night}', '#{available}', '#{owner}', '#{location}');")
+    result = @connection.exec ("INSERT INTO rooms (name, description, price_per_night, available, owner, location) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}', '#{offer['available']}', '#{offer['owner_user_id']}', '#{offer['location']}');")
+    return "success" if result != nil
+    return "failure"
   end
 
   def self.list_rooms
