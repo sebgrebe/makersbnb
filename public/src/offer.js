@@ -5,7 +5,7 @@ $(document).ready(function(){
       name: $('#name').val(),
       description: $('#description').val(),
       price: $('#price').val(),
-      available: $('#available_yes').is(':checked')
+      available: $('#available_yes').is(':checked'),
       location: $('#location').val(),
       owner_user_id: '12345'
     }
@@ -42,7 +42,8 @@ function offerRoom(offer){
   .done(function(data) {
     // implement logic for checking the response.
     // if successful, give confirmation
-    showOfferConfirmation();
+    if data === 'success' { showOfferConfirmation() }
+    else { showError('Sorry, something went wrong') }
   })
   .fail(function(xhr,status,errorThrown) {
     showError('Sorry, something went wrong' )

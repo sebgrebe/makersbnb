@@ -23,7 +23,7 @@ class MakersBnB < Sinatra::Base
 
   post '/api/offer_room' do
     @offer = params[:offer]
-    Rooms.add_room(@offer)
+    Rooms.add_room(@offer).to_json
   end
 
   run! if app_file == $0

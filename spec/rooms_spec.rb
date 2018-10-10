@@ -26,6 +26,9 @@ describe Rooms do
       expect(results['owner']).to eq(@offer['owner_user_id'])
       expect(results['location']).to eq(@offer['location'])
     end
+    it 'returns "success" on success' do
+      expect(Rooms.add_room(@offer)).to eq "success"
+    end
   end
 
   describe '.list_rooms' do
