@@ -1,3 +1,11 @@
+.auth-input {
+  display: block;
+}
+
+.auth-btn {
+  display: block;
+}
+
 .confirmation {
   background-color: green;
   font-size: 20px;

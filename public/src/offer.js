@@ -7,7 +7,6 @@ $(document).ready(function(){
       price: $('#price').val(),
       available: $('#available_yes').is(':checked'),
       location: $('#location').val(),
-      owner_user_id: 12345
     }
 
     //offerRoom(offer);
@@ -42,7 +41,7 @@ function offerRoom(offer){
   .done(function(data) {
     // implement logic for checking the response.
     // if successful, give confirmation
-    if data === 'success' { showOfferConfirmation() }
+    if (data === 'success') { showOfferConfirmation() }
     else { showError('Sorry, something went wrong') }
   })
   .fail(function(xhr,status,errorThrown) {
