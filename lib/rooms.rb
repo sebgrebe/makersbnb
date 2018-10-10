@@ -8,9 +8,7 @@ class Rooms
 
   def self.add_room(offer)
     connect_database()
-    // dummy user id. Will need to be switched to actual one, using fetching of foreign key
-    dummy_user_id = '12345'
-    result = @connection.exec ("INSERT INTO rooms (name, description, price_per_night, available, owner, location) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}', '#{offer['available']}', '#{dummy_user_id}', '#{offer['location']}');")
+    result = @connection.exec ("INSERT INTO rooms (room_name, description, price_per_night, available, location) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}','#{offer['available']}', '#{offer['location']}');")
     return "success" if result != nil
     return "failure"
   end
@@ -22,7 +20,6 @@ class Rooms
     result.map do |element|
       array_of_rooms.push(element)
     end
-    p 'list_rooms in rooms.rb', array_of_rooms
     return array_of_rooms
   end
 
