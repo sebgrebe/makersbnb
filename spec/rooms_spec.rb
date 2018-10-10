@@ -64,5 +64,5 @@ describe Rooms do
   #   id = '3'
   #   expect(Rooms.book_room(id)[:booked]).to eq(false)
   # end
-end
+  end
 end

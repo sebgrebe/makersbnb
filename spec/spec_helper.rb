@@ -6,8 +6,15 @@ require 'sinatra/base'
 require_relative './setup_test_database'
 require 'capybara'
 require 'capybara/rspec'
-
 Capybara.app = MakersBnB
+# Capybara.default_driver = :webkit
+# Capybara.javascript_driver = :webkit
+
+# Capybara.register_server("puma") do |app, port|
+#   server = Puma::Server.new(app)
+#   server.add_tcp_listener(Capybara.server_host, port)
+#   server.run
+# end
 
 RSpec.configure do |config|
   config.before(:each) do
