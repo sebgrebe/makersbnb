@@ -21,6 +21,11 @@ class MakersBnB < Sinatra::Base
     Rooms.book_room(params[:id]).to_json
   end
 
+  post '/api/offer_room' do
+    @offer = params[:offer]
+    Rooms.add_room(@offer)
+  end
+
   run! if app_file == $0
 
 end

@@ -1,10 +1,13 @@
 $(document).ready(function(){
   $('#offer-btn').click(function(){
+    //TODO: Replace user_id with actual one
     var offer = {
       name: $('#name').val(),
       description: $('#description').val(),
-      price: parseInt($('#price').val()),
+      price: $('#price').val(),
       available: $('#available_yes').is(':checked')
+      location: $('#location').val(),
+      owner_user_id: '12345'
     }
 
     //offerRoom(offer);
@@ -32,10 +35,9 @@ function validateInput(offer){
 
 function offerRoom(offer){
    $.ajax({
-    url: 'http://localhost:9292/api/offerroom',
+    url: 'http://localhost:9292/api/offer_room?'+ jQuery.param({offer: offer}),
     type: 'POST',
     dataType: 'json',
-    body: JSON.stringify(offer)
   })
   .done(function(data) {
     // implement logic for checking the response.
