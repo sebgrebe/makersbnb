@@ -17,6 +17,7 @@ class Rooms
     result.map do |element|
       array_of_rooms.push(element)
     end
+    p 'list_rooms in rooms.rb', array_of_rooms
     return array_of_rooms
   end
 
@@ -27,14 +28,21 @@ class Rooms
       return x['available']
     end
   end
+
+  def self.get_room(id)
+    connect_database
+    room = @connection.exec("SELECT * FROM rooms WHERE room_id = #{id};")
+    return room[0]
+  end
+
   def self.book_room(id)
     connect_database
     if check_availability(id) == 't'
       @connection.exec ("UPDATE rooms SET available = 'f' WHERE room_id = #{id};")
-      result = { :booked => true, :room => (@connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};"))}
+      result = { :booked => true, :room => self.get_room(id) }
       return result
     else
-      result = { :booked => false, :room => (@connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};"))}
+      result = { :booked => false, :room => self.get_room(id) }
       return result
     end
   end

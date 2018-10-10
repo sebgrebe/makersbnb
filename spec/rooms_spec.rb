@@ -54,11 +54,18 @@ describe Rooms do
       id = '1'
       expect(Rooms.book_room(id)[:booked]).to eq(true)
     end
-  it 'it doesn\'t allows room to be booked if available' do
-    conn = PG.connect(dbname: 'makersbnb_test')
-    Rooms.add_room(@name, @description, @price_per_night, 'f', @owner, @location)
-    id = '3'
-    expect(Rooms.book_room(id)[:booked]).to eq(false)
+    it 'it doesn\'t allows room to be booked if available' do
+      conn = PG.connect(dbname: 'makersbnb_test')
+      Rooms.add_room(@name, @description, @price_per_night, 'f', @owner, @location)
+      id = '3'
+      expect(Rooms.book_room(id)[:booked]).to eq(false)
+    end
   end
-end
+
+  describe '.get_room' do
+    it 'returns a room given an id' do
+      conn = PG.connect(dbname: 'makersbnb_test')
+      expect(Rooms.get_room('1')['name']).to eq 'studio flat'
+    end
+  end
 end
