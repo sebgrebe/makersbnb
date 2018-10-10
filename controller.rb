@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative 'lib/rooms'
+require_relative 'lib/bookings'
 
 class MakersBnB < Sinatra::Base
 
@@ -18,7 +19,7 @@ class MakersBnB < Sinatra::Base
   end
 
   post '/api/book_room' do
-    Rooms.book_room(params[:id]).to_json
+    Bookings.book_room(params[:id]).to_json
   end
 
   post '/api/offer_room' do

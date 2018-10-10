@@ -3,7 +3,9 @@ $(document).ready(function() {
 
   $(document).on("click", ".booking-button", function(val) {
     var button_id = val.currentTarget.id
+    console.log(button_id)
     var room_id = button_id.substr(15,button_id.length-1)
+    console.log(room_id)
     bookRoom(room_id)
   });
 
@@ -20,8 +22,8 @@ function bookRoom(room_id){
     dataType: 'json',
   })
   .done(function(data) {
-    console.log(data.room.name)
-    if (data.booked) { showBookingConfirmation(data.room.name)}
+    console.log(data)
+    if (data.booked) { showBookingConfirmation(data.room[0]['room_name'])}
   })
   .fail(function(xhr,status,errorThrown) {
     alert("Sorry, there was a problem. Status: " + status)
@@ -29,7 +31,7 @@ function bookRoom(room_id){
 }
 
 function formatAvailability(availability) {
-  if(availability === true) {
+  if(availability === 't') {
     return "Yes";
   } else {
     return "No";
