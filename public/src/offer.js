@@ -4,8 +4,7 @@ $(document).ready(function(){
       name: $('#name').val(),
       description: $('#description').val(),
       price: parseInt($('#price').val()),
-      available: $('#available_yes').is(':checked'),
-      owner: $('#owner').val()
+      available: $('#available_yes').is(':checked')
     }
 
     //offerRoom(offer);
