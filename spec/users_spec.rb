@@ -15,4 +15,11 @@ describe Users do
       expect(result['email']).to eq(@email)
     end
   end
+
+  describe '.exist?' do
+    it 'tells us if user already exists' do
+      Users.sign_up(@email, @password, @first_name, @last_name)
+      expect(Users.exist?(@email)).to eq(true)
+    end
+  end
 end
