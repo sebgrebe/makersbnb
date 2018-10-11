@@ -2,19 +2,33 @@ require 'pg'
 
 class Bookings
 
-  def self.book_room(id)
+  def self.book_room(room_id, booker_id)
     connect_database
-    if check_availability(id) == 't'
-      @connection.exec ("UPDATE rooms SET available = 'f' WHERE room_id = #{id};")
-      result = { :booked => true, :room => map_room_info(id)}
-      return result
+    if check_availability(room_id) == 't'
+      result = self.change_availability('f', room_id)
+      self.add_booking(room_id, booker_id)
+      return result 
     else
-      result = { :booked => false, :room => map_room_info(id)}
+      result = { :success => false, :room => map_room_info(room_id)}
       return result
     end
   end
 
+
   private
+
+  def self.add_booking(room_id, booker_id)
+    booker_id = @connection.exec("SELECT user_id FROM users WHERE user_id=#{booker_id}")
+    booker_id = booker_id[0]['user_id']
+    room_id = @connection.exec("SELECT room_id FROM rooms WHERE room_id=#{room_id}")
+    room_id = room_id[0]['room_id']
+    @connection.exec ("INSERT INTO bookings (room_id, booker_user_id, status) VALUES('#{room_id}', '#{booker_id}','Requested');")
+  end
+
+  def self.change_availability(bool_str, room_id)
+    @connection.exec ("UPDATE rooms SET available = '#{bool_str}' WHERE room_id = #{room_id};")
+    return { :success => true, :room => map_room_info(room_id)}
+  end
 
   def self.map_room_info(room_id)
     array_of_rooms = []
