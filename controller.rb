@@ -4,6 +4,8 @@ require_relative 'lib/users'
 require_relative 'lib/bookings'
 
 class MakersBnB < Sinatra::Base
+  
+  enable :sessions
 
   get '/offer' do
     File.read(File.join('public', 'offer.html'))
