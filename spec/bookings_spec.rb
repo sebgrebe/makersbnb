@@ -18,7 +18,7 @@ describe Bookings do
     it 'adds room id and user_id to bookings table' do
       conn = PG.connect(dbname: 'makersbnb_test')
       Bookings.book_room('1','1')
-      booking = conn.exec("SELECT * FROM bookings WHERE booking_id ='1'")[0]
+      booking = conn.exec("SELECT * FROM bookings WHERE booking_id ='2'")[0]
       expect(booking['room_id']).to eq '1'
       expect(booking['booker_user_id']).to eq '1'
     end
