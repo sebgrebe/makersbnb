@@ -59,7 +59,7 @@ function getRooms() {
 
 function showBookingConfirmation(room_name){
   $('#messages').text('')
-  $('#messages').append('<div class="confirmation">You have successfully booked the room: ' + room_name + '</div>');
+  $('#messages').append('<div class="confirmation">You have successfully requested the room: ' + room_name + '</div>');
 }
 
 function showBookingError() {
