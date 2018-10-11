@@ -30,6 +30,37 @@ class Rooms
     return room[0]
   end
 
+  def self.users_offers(user_id)
+    connect_database
+    rooms_without_status = self.users_offers_without_status(user_id)
+    rooms = []
+    rooms_without_status.map do |room|
+      room_id = room['room_id']
+      result = @connection.exec("SELECT * FROM bookings WHERE room_id='#{room_id}'")
+      if result.ntuples > 0
+        result.map do |booking|
+          room['booking'] = booking
+          room['booking']['booker_name'] = @connection.exec("SELECT first_name FROM users WHERE user_id=#{room['booking']['booker_user_id']}")[0]['first_name']
+          rooms.push(room)
+        end
+      else
+        room['booking'] = {}
+        room['booking']['status'] = 'Not requested'
+        rooms.push(room)
+      end
+    end
+    return {success: true, rooms: rooms}
+  end
+
+  def self.users_offers_without_status(user_id)
+    connect_database
+    result = @connection.exec("SELECT * FROM rooms WHERE owner_user_id = #{user_id}")
+    rooms = []
+    result.map do |element|
+      rooms.push(element)
+    end
+    return rooms
+  end
 
   private
 

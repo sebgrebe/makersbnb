@@ -18,7 +18,7 @@ describe Bookings do
     it 'adds room id and user_id to bookings table' do
       conn = PG.connect(dbname: 'makersbnb_test')
       Bookings.book_room('1','1')
-      booking = conn.exec("SELECT * FROM bookings WHERE booking_id ='1'")[0]
+      booking = conn.exec("SELECT * FROM bookings WHERE booking_id ='2'")[0]
       expect(booking['room_id']).to eq '1'
       expect(booking['booker_user_id']).to eq '1'
     end
@@ -49,4 +49,25 @@ describe Bookings do
       expect(Bookings.get_booking_status(1)).to include({"room_id"=>"1", "status"=>"Requested"})
     end
   end
+
+  describe '.confirm' do
+    it 'confirms booking' do
+      booking_id = '1'
+      Bookings.confirm(booking_id)
+      conn = PG.connect(dbname: 'makersbnb_test')
+      status = conn.exec("SELECT status FROM bookings where booking_id='#{booking_id}'")[0]['status']
+      expect(status).to eq ('confirmed')
+    end
+  end
+
+  describe'.decline' do
+    it 'declines the booking' do
+      booking_id = '1'
+      Bookings.decline(booking_id)
+      conn = PG.connect(dbname: 'makersbnb_test')
+      status = conn.exec("SELECT status FROM bookings where booking_id='#{booking_id}'")[0]['status']
+      expect(status).to eq ('declined')
+    end
+  end
+
 end

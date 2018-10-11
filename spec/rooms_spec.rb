@@ -39,7 +39,26 @@ describe Rooms do
         'price_per_night' => '100',
         'available' => 't',
         'location' => 'London',
-        'owner_user_id' => nil})
+        'owner_user_id' => '1'})
+    end
+  end
+
+  describe '.users_offers' do
+    it 'returns users offers with status' do
+      user1_id = '1'
+      rooms = Rooms.users_offers(user1_id)[:rooms]
+      expect(rooms[0]['booking']['status']).to eq 'Requested'
+      expect(rooms[1]['booking']['status']).to eq 'Not requested'
+      expect(rooms[0]['booking']['booker_name']).to eq 'test_name2'
+    end
+  end
+
+  describe '.users_offers_without_status' do
+    it 'gives you a list of room offered by a particular user' do
+      user_id = '1'
+      rooms = Rooms.users_offers_without_status(user_id)
+      expect(rooms[0]['room_name']).to eq 'studio flat'
+      expect(rooms[1]['room_name']).to eq 'penthouse'
     end
   end
 

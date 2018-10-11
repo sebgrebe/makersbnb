@@ -27,7 +27,7 @@ function callSignUp(signup) {
   })
   .done(function(data) {
     if (data.success) {
-      window.location.replace("/rooms")
+      window.location.replace("/user")
     } else {
       showError(data.msg)
     }
@@ -45,7 +45,7 @@ function callLogin(login) {
   })
   .done(function(data) {
     if (data.success) {
-      window.location.replace("/rooms")
+      window.location.replace("/user")
     } else {
       showError(data.msg)
     }
