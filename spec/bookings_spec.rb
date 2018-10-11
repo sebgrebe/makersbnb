@@ -30,5 +30,15 @@ describe Bookings do
       booker_id = '1'
       expect(Bookings.book_room(id,booker_id)[:success]).to eq(false)
     end
-end
+  end
+
+  describe '#display_booked_rooms' do
+    it "shows a user a list of rooms they've booked" do
+      conn = PG.connect(dbname: 'makersbnb_test')
+      Bookings.book_room(1, 1)
+      Bookings.book_room(2, 1)
+      expect(Bookings.display_booked_rooms(1)[0]).to include({"description" => "a studio flat in SE london"})
+      expect(Bookings.display_booked_rooms(1)[1]).to include({"description" => "views over East London"})
+    end
+  end
 end

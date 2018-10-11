@@ -7,13 +7,19 @@ class Bookings
     if check_availability(room_id) == 't'
       result = self.change_availability('f', room_id)
       self.add_booking(room_id, booker_id)
-      return result 
+      return result
     else
       result = { :success => false, :room => map_room_info(room_id)}
       return result
     end
   end
 
+  def self.display_booked_rooms(booker_id)
+    connect_database
+    room_ids = get_room_ids(booker_id)
+    room_info = get_room_info(room_ids)
+    return room_info.flatten
+  end
 
   private
 
@@ -53,5 +59,31 @@ class Bookings
     else
       @connection = PG.connect(dbname: 'makersbnb')
     end
+  end
+
+  def self.get_room_ids(booker_id)
+    result = @connection.exec ("SELECT room_id FROM bookings WHERE booker_user_id = #{booker_id};")
+    array = []
+    result.map do |element|
+      array.push(element)
+    end
+    room_ids = []
+    array.map do |element|
+      room_ids.push(element['room_id'])
+    end
+    return room_ids
+  end
+
+  def self.get_room_info(room_ids)
+    room_info = []
+    room_ids.each do |id|
+      result = @connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};")
+      array = []
+      result.map do |element|
+        array.push(element)
+      end
+      room_info.push(array)
+    end
+    return room_info
   end
 end
