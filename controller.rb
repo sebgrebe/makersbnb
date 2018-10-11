@@ -4,9 +4,9 @@ require_relative 'lib/users'
 require_relative 'lib/bookings'
 
 class MakersBnB < Sinatra::Base
-  
+
   enable :sessions
-  
+
   get '/offer' do
     File.read(File.join('public', 'offer.html'))
   end
@@ -23,6 +23,10 @@ class MakersBnB < Sinatra::Base
     File.read(File.join('public', 'login.html'))
   end
 
+  get '/users/offers' do
+    File.read(File.join('public', 'users_offers.html'))
+  end
+
   get '/api/rooms' do
      Rooms.list_rooms.to_json
   end
@@ -31,6 +35,14 @@ class MakersBnB < Sinatra::Base
     return {success: false, msg: "You need to be logged in to offer a room"}.to_json if session[:user] == nil
     @user_id = session[:user]["user_id"]
     Rooms.users_offers(@user_id).to_json
+  end
+
+  post '/api/users/offers/confirm' do
+    Bookings.confirm(params[:booking_id]).to_json
+  end
+
+  post '/api/users/offers/decline' do
+    Bookings.decline(params[:booking_id]).to_json
   end
 
   post '/api/login' do

@@ -49,6 +49,7 @@ describe Rooms do
       rooms = Rooms.users_offers(user1_id)[:rooms]
       expect(rooms[0]['booking']['status']).to eq 'Requested'
       expect(rooms[1]['booking']['status']).to eq 'Not requested'
+      expect(rooms[0]['booking']['booker_name']).to eq 'test_name2'
     end
   end
 

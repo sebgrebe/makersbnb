@@ -43,7 +43,6 @@ function offerRoom(offer){
     // if successful, give confirmation
     if (data.success === true) { showOfferConfirmation() }
     else {
-      
       showError(data.msg)
     }
   })

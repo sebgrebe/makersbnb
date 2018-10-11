@@ -40,6 +40,7 @@ class Rooms
       if result.ntuples > 0
         result.map do |booking|
           room['booking'] = booking
+          room['booking']['booker_name'] = @connection.exec("SELECT first_name FROM users WHERE user_id=#{room['booking']['booker_user_id']}")[0]['first_name']
           rooms.push(room)
         end
       else
