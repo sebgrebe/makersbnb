@@ -27,7 +27,7 @@ function callSignUp(signup) {
   })
   .done(function(data) {
     if (data.success) {
-      showSuccess("Signup was successful", data.user.first_name)
+      window.location.replace("/rooms")
     } else {
       showError(data.msg)
     }
@@ -45,7 +45,7 @@ function callLogin(login) {
   })
   .done(function(data) {
     if (data.success) {
-      showSuccess("Login was successful", data.user.first_name)
+      window.location.replace("/rooms")
     } else {
       showError(data.msg)
     }
@@ -58,9 +58,4 @@ function callLogin(login) {
 function showError(msg) {
   $('#messages').text('')
   $('#messages').append('<div class="error">' + msg + '</div>');
-}
-
-function showSuccess(msg, name){
-  $('#messages').text('')
-  $('#messages').append('<div class="confirmation"> Hello ' + name + '. ' + msg + '</div>');
 }
