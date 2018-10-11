@@ -10,8 +10,8 @@ class Rooms
     user_id = @connection.exec("SELECT user_id FROM users WHERE user_id=#{user_id}")
     user_id = user_id[0]['user_id']
     result = @connection.exec ("INSERT INTO rooms (room_name, description, price_per_night, available, location, owner_user_id) VALUES ('#{offer['name']}','#{offer['description']}', '#{offer['price']}','#{offer['available']}', '#{offer['location']}', '#{user_id}');")
-    return "success" if result != nil
-    return "failure"
+    return {success: true} if result != nil
+    return {success: false, msg: "Sorry, something went wrong"}
   end
 
   def self.list_rooms

@@ -1,6 +1,7 @@
 require 'users'
 
 describe Users do
+  
   before(:each) {
     @email = 'maker@gmail.com'
     @password = '1234rt'
@@ -17,6 +18,7 @@ describe Users do
     end
     it 'returns success message and user' do
       result = Users.sign_up(@email, @password, @first_name, @last_name)
+      p "session?", session[:user]
       expect(result[:success]).to eq(true)
       expect(result[:user]['first_name']).to eq(@first_name)
     end
