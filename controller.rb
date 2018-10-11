@@ -35,10 +35,10 @@ class MakersBnB < Sinatra::Base
 
   get '/users/bookings' do
     File.read(File.join('public', 'users_bookings.html'))
+  end
 
   get '/users/offers' do
     File.read(File.join('public', 'users_offers.html'))
-
   end
 
   get '/api/rooms' do
@@ -49,6 +49,7 @@ class MakersBnB < Sinatra::Base
   get '/api/users/bookings' do
     p 'help me', session[:user]
     Bookings.display_booked_rooms(session[:user]["user_id"]).to_json
+  end
 
   get '/api/users/offers' do
     return {success: false, msg: "You need to be logged in to offer a room"}.to_json if session[:user] == nil
