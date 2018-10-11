@@ -25,8 +25,8 @@ function bookRoom(room_id){
     console.log(data)
     if (data.success) { showBookingConfirmation(data.room[0]['room_name'])
       changeAvailability(data.room[0]['room_id']);
-  }
-    else{ showBookingError();}
+    }
+    else{ showBookingError(data.msg);}
   })
   .fail(function(xhr,status,errorThrown) {
     alert("Sorry, there was a problem. Status: " + status)
@@ -62,9 +62,9 @@ function showBookingConfirmation(room_name){
   $('#messages').append('<div class="confirmation">You have successfully requested the room: ' + room_name + '</div>');
 }
 
-function showBookingError() {
+function showBookingError(msg) {
   $('#messages').text('')
-  $('#messages').append('<div class="error">You cannot book unavailable rooms</div>');
+  $('#messages').append('<div class="error">' + msg + '</div>');
 }
 
 function changeAvailability(room_id){

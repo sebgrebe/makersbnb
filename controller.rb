@@ -7,12 +7,20 @@ class MakersBnB < Sinatra::Base
 
   enable :sessions
 
+  get '/' do
+    File.read(File.join('public', 'index.html'))
+  end
+
   get '/offer' do
     File.read(File.join('public', 'offer.html'))
   end
 
   get '/rooms' do
     File.read(File.join('public', 'rooms.html'))
+  end
+
+  get '/user' do
+    File.read(File.join('public', 'user.html'))
   end
 
   get '/users/signup' do
@@ -64,6 +72,7 @@ class MakersBnB < Sinatra::Base
   end
 
   post '/api/book_room' do
+    return {success: false, msg: "You need to be logged in to book a room"}.to_json if session[:user] == nil
     @user_id = session[:user]["user_id"]
     Bookings.book_room(params[:id], @user_id).to_json
   end
