@@ -30,5 +30,25 @@ describe Bookings do
       booker_id = '1'
       expect(Bookings.book_room(id,booker_id)[:success]).to eq(false)
     end
-end
+  end
+  describe '.confirm' do
+    it 'confirms booking' do
+      booking_id = '1'
+      Bookings.confirm(booking_id)
+      conn = PG.connect(dbname: 'makersbnb_test')
+      status = conn.exec("SELECT status FROM bookings where booking_id='#{booking_id}'")[0]['status']
+      expect(status).to eq ('confirmed')
+    end
+  end
+
+  describe'.decline' do
+    it 'declines the booking' do
+      booking_id = '1'
+      Bookings.decline(booking_id)
+      conn = PG.connect(dbname: 'makersbnb_test')
+      status = conn.exec("SELECT status FROM bookings where booking_id='#{booking_id}'")[0]['status']
+      expect(status).to eq ('declined')
+    end
+  end
+
 end

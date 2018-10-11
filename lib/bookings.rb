@@ -7,7 +7,7 @@ class Bookings
     if check_availability(room_id) == 't'
       result = self.change_availability('f', room_id)
       self.add_booking(room_id, booker_id)
-      return result 
+      return result
     else
       result = { :success => false, :room => map_room_info(room_id)}
       return result
@@ -45,6 +45,16 @@ class Bookings
     available.each do |x|
       return x['available']
     end
+  end
+
+  def self.confirm(booking_id)
+    connect_database
+    @connection.exec("UPDATE bookings SET status = 'confirmed' where booking_id='#{booking_id}' returning status")[0]['status']
+  end
+
+  def self.decline(booking_id)
+    connect_database
+    @connection.exec("UPDATE bookings SET status = 'declined' where booking_id='#{booking_id}' returning status")[0]['status']
   end
 
   def self.connect_database
