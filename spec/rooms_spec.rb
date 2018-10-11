@@ -26,7 +26,7 @@ describe Rooms do
       expect(results['owner_user_id']).to eq("1")
     end
     it 'returns "success" on success' do
-      expect(Rooms.add_room(@offer, 1)).to eq "success"
+      expect(Rooms.add_room(@offer, 1)[:success]).to eq true
     end
   end
 

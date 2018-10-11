@@ -13,16 +13,17 @@ describe Bookings do
     end
     it 'it allows room to be booked if available' do
       conn = PG.connect(dbname: 'makersbnb_test')
-      Rooms.add_room(@offer, 1)
-      id = '1'
-      expect(Bookings.book_room(id)[:booked]).to eq(true)
+      expect(Bookings.book_room('1')[:booked]).to eq(true)
     end
-  it 'it doesn\'t allows room to be booked if not available' do
-    conn = PG.connect(dbname: 'makersbnb_test')
-    @offer['available'] = 'f'
-    Rooms.add_room(@offer, 1)
-    id = '3'
-    expect(Bookings.book_room(id)[:booked]).to eq(false)
-  end
+    it 'saves the user id of the booker' do
+
+    end
+    it 'it doesn\'t allows room to be booked if not available' do
+      conn = PG.connect(dbname: 'makersbnb_test')
+      @offer['available'] = 'f'
+      Rooms.add_room(@offer, 1)
+      id = '3'
+      expect(Bookings.book_room(id)[:booked]).to eq(false)
+    end
 end
 end
