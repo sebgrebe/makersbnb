@@ -23,8 +23,17 @@ class MakersBnB < Sinatra::Base
     File.read(File.join('public', 'login.html'))
   end
 
+  get '/users/bookings' do
+    File.read(File.join('public', 'users_bookings.html'))
+  end
+
   get '/api/rooms' do
      Rooms.list_rooms.to_json
+  end
+
+  get '/api/users/bookings' do
+    p 'help me', session[:user]
+    Bookings.display_booked_rooms(session[:user]["user_id"]).to_json
   end
 
   post '/api/login' do

@@ -18,7 +18,21 @@ class Bookings
     connect_database
     room_ids = get_room_ids(booker_id)
     room_info = get_room_info(room_ids)
+    room_ids.each do |id|
+      room_info.push(get_booking_status(id))
+    end
+    p room_info.flatten
     return room_info.flatten
+  end
+
+  def self.get_booking_status(room_id)
+    status = []
+    connect_database
+    result = @connection.exec("SELECT room_id, status FROM bookings WHERE room_id=#{room_id}")
+    result.map do |element|
+      status.push(element)
+    end
+    return status
   end
 
   private

@@ -41,4 +41,12 @@ describe Bookings do
       expect(Bookings.display_booked_rooms(1)[1]).to include({"description" => "views over East London"})
     end
   end
+
+  describe '#get_booking_status' do
+    it "gets a room status" do
+      conn = PG.connect(dbname: 'makersbnb_test')
+      Bookings.book_room(1, 1)
+      expect(Bookings.get_booking_status(1)).to include({"room_id"=>"1", "status"=>"Requested"})
+    end
+  end
 end
