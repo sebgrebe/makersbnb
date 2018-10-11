@@ -15,9 +15,6 @@ describe Bookings do
       conn = PG.connect(dbname: 'makersbnb_test')
       expect(Bookings.book_room('1')[:booked]).to eq(true)
     end
-    it 'saves the user id of the booker' do
-
-    end
     it 'it doesn\'t allows room to be booked if not available' do
       conn = PG.connect(dbname: 'makersbnb_test')
       @offer['available'] = 'f'
