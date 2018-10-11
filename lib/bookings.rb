@@ -9,7 +9,7 @@ class Bookings
       self.add_booking(room_id, booker_id)
       return result
     else
-      result = { :success => false, :room => map_room_info(room_id)}
+      result = { :success => false, :msg => 'You cannot book unavailable rooms', :room => map_room_info(room_id)}
       return result
     end
   end
