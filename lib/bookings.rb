@@ -14,6 +14,26 @@ class Bookings
     end
   end
 
+  def self.display_booked_rooms(booker_id)
+    connect_database
+    room_ids = get_room_ids(booker_id)
+    room_info = get_room_info(room_ids)
+    room_ids.each do |id|
+      room_info.push(get_booking_status(id))
+    end
+    p room_info.flatten
+    return room_info.flatten
+  end
+
+  def self.get_booking_status(room_id)
+    status = []
+    connect_database
+    result = @connection.exec("SELECT room_id, status FROM bookings WHERE room_id=#{room_id}")
+    result.map do |element|
+      status.push(element)
+    end
+    return status
+  end
 
   private
 
@@ -63,5 +83,31 @@ class Bookings
     else
       @connection = PG.connect(dbname: 'makersbnb')
     end
+  end
+
+  def self.get_room_ids(booker_id)
+    result = @connection.exec ("SELECT room_id FROM bookings WHERE booker_user_id = #{booker_id};")
+    array = []
+    result.map do |element|
+      array.push(element)
+    end
+    room_ids = []
+    array.map do |element|
+      room_ids.push(element['room_id'])
+    end
+    return room_ids
+  end
+
+  def self.get_room_info(room_ids)
+    room_info = []
+    room_ids.each do |id|
+      result = @connection.exec ("SELECT * FROM rooms WHERE room_id = #{id};")
+      array = []
+      result.map do |element|
+        array.push(element)
+      end
+      room_info.push(array)
+    end
+    return room_info
   end
 end
