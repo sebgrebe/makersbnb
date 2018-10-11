@@ -41,8 +41,11 @@ function offerRoom(offer){
   .done(function(data) {
     // implement logic for checking the response.
     // if successful, give confirmation
-    if (data === 'success') { showOfferConfirmation() }
-    else { showError('Sorry, something went wrong') }
+    if (data.success === true) { showOfferConfirmation() }
+    else {
+      
+      showError(data.msg)
+    }
   })
   .fail(function(xhr,status,errorThrown) {
     showError('Sorry, something went wrong' )

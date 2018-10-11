@@ -24,7 +24,6 @@ class Users
     return false
   end
 
-
   def self.connect_database
     if ENV['ENV'] == 'test'
       @connection = PG.connect(dbname: 'makersbnb_test')
