@@ -23,7 +23,7 @@ function bookRoom(room_id){
   })
   .done(function(data) {
     console.log(data)
-    if (data.booked) { showBookingConfirmation(data.room[0]['room_name'])
+    if (data.success) { showBookingConfirmation(data.room[0]['room_name'])
       changeAvailability(data.room[0]['room_id']);
   }
     else{ showBookingError();}
